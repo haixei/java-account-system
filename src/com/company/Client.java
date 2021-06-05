@@ -7,13 +7,13 @@ public class Client {
     private String lastName;
     private long dateCreated;
     private List<Object> accounts;
-    private int age;
+    private long dateOfBirth;
     private String accountNumber;
 
-    public Client(String firstName, String lastName, int age) {
+    public Client(String firstName, String lastName, long dateOfBirth) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.age = age;
+        this.dateOfBirth = dateOfBirth;
         this.dateCreated = System.currentTimeMillis();
         this.accounts = new ArrayList<Object>();
         this.accountNumber = generateAccountNumber(firstName, lastName);
@@ -33,5 +33,19 @@ public class Client {
         String accountNumber = String.join("", (CharSequence) numbers);
         accountNumber = accountNumber + firstName.charAt(0) + lastName.charAt(0);
         return accountNumber;
+    }
+
+    // Let the client change its name
+    public void changeLastName(String newName){
+        this.lastName = newName;
+    }
+
+    public void changeFirstName(String newName){
+        this.firstName = newName;
+    }
+
+    // Allow for adding new accounts
+    public void addNewAccount(Object newAccount){
+        this.accounts.add(newAccount);
     }
 }
