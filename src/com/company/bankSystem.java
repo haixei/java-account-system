@@ -73,8 +73,13 @@ public class bankSystem {
             this.createAccount();
         }else{
             // Create a new account and add it to the client object
-            StandardAccount newAccount = new StandardAccount();
-            foundClient.addNewAccount(newAccount);
+            if(accountOption.equals("1")){
+                StandardAccount newAccount = new StandardAccount();
+                foundClient.addNewAccount(newAccount);
+            }else{
+                SavingsAccount newAccount = new SavingsAccount();
+                foundClient.addNewAccount(newAccount);
+            }
         }
     }
 
