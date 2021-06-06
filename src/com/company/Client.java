@@ -58,4 +58,8 @@ public class Client {
         return String.format("First name: %s\nLast name: %s\nDate of birth: %s", this.firstName, this.lastName,
                              this.dateOfBirth);
     }
+
+    public String getAccountNumber(){
+        return this.accountNumber;
+    }
 }

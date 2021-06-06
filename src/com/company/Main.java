@@ -11,10 +11,6 @@ public class Main {
 	    float bal = newAccount.changeBalance(10);
 	    System.out.println(bal);
 
-        // When everything is alright, we create a new client
-        Client newClient = new Client("Kate", "Smith", "02/03/1980");
-        System.out.println(newClient.clientSummary());
-
         // Test a bank system
         bankSystem bankSystem = new bankSystem();
         bankSystem.chooseAction();
