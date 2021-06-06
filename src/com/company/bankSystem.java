@@ -71,15 +71,15 @@ public class bankSystem {
         if (foundClient == null){
             System.out.println("Sorry, it seems like this account does not exist.");
             this.createAccount();
+        }
+
+        // Create a new account and add it to the client object
+        if(accountOption.equals("1")){
+            StandardAccount newAccount = new StandardAccount();
+            foundClient.addNewAccount(newAccount);
         }else{
-            // Create a new account and add it to the client object
-            if(accountOption.equals("1")){
-                StandardAccount newAccount = new StandardAccount();
-                foundClient.addNewAccount(newAccount);
-            }else{
-                SavingsAccount newAccount = new SavingsAccount();
-                foundClient.addNewAccount(newAccount);
-            }
+            SavingsAccount newAccount = new SavingsAccount();
+            foundClient.addNewAccount(newAccount);
         }
     }
 
@@ -97,10 +97,40 @@ public class bankSystem {
         }
     }
 
+    // Transaction methods
+    public void sendMoney(){
+        // Get both account numbers
+        System.out.println("Provide sender's id: ");
+        String accountNumberSender = scanner.nextLine();
+        System.out.println("Provide receiver's id: ");
+        String accountNumberReceiver = scanner.nextLine();
+
+        Client foundSender = (Client) this.getClient(accountNumberSender);
+        Client foundReceiver = (Client) this.getClient(accountNumberReceiver);
+
+        if(foundSender == null) {
+            System.out.println("Sorry, it seems like the sender account does not exist.");
+            this.sendMoney();
+        }else if(foundReceiver == null){
+            System.out.println("Sorry, it seems like the receiver account does not exist.");
+            this.sendMoney();
+        }
+
+        // Ask for amount of money to transfer
+        System.out.println("How much money do you want to transfer? (ex. -100, 1204)");
+        String amountStr = scanner.nextLine();
+        try{
+            int amount = Integer.parseInt(amountStr);
+        }catch(NumberFormatException e){
+            System.out.println("Your date contains characters that are not numbers.");
+            this.sendMoney();
+        }
+    }
+
     // Methods for looking up information in the collection
-    public Object getClient(String accountNumber){
+    public Object getClient(String id){
         return this.clientList.stream()
-                .filter(client -> accountNumber.equals(client.getAccountNumber()))
+                .filter(client -> id.equals(client.getClientId()))
                 .findFirst()
                 .orElse(null);
     }
