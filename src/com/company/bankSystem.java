@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class bankSystem {
     // Create a storage place for client data
-    private List<Object> clientList = new ArrayList<>();
+    private List<Client> clientList = new ArrayList<>();
     Scanner scanner = new Scanner(System.in);
 
     public void chooseAction(){
@@ -17,16 +17,10 @@ public class bankSystem {
         // Check if the input is a number
         try{
             int action = Integer.parseInt(actionStr);
-            switch (action){
-                case 1:
-                    this.createClient();
-                    break;
-                case 2:
-                    this.createAccount();
-                    break;
-                case 3:
-                    this.getClient();
-                    break;
+            switch (action) {
+                case 1 -> this.createClient();
+                case 2 -> this.createAccount();
+                case 3 -> this.getClient();
             }
         }catch(NumberFormatException e){
             System.out.println("Please input a number.");
