@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class bankSystem {
     // Create a storage place for client data
-    private List<Client> clientList = new ArrayList<>();
+    private final List<Client> clientList = new ArrayList<>();
     Scanner scanner = new Scanner(System.in);
 
     public void chooseAction(){
@@ -20,13 +20,14 @@ public class bankSystem {
             switch (action) {
                 case 1 -> this.createClient();
                 case 2 -> this.createAccount();
-                case 3 -> this.getClient();
+                case 3 -> this.showClientSummary();
             }
         }catch(NumberFormatException e){
             System.out.println("Please input a number.");
             this.chooseAction();
         }
     }
+
     public void createClient(){
         System.out.println("Provide client's first name: ");
         String firstName = scanner.nextLine();
@@ -53,23 +54,49 @@ public class bankSystem {
     }
 
     public void createAccount(){
+        // Pick new account information
+        System.out.println("Select account type:\n1. Standard\n2. Savings");
+        String accountOption = scanner.nextLine();
+        if(!(accountOption.equals("1") || accountOption.equals("2")) && accountOption.length() != 1){
+            System.out.println("You provided a wrong input (should be either 1 or 2), try again.");
+            this.createAccount();
+        }
 
+        // Pick the client
+        System.out.println("Provide client's account number: ");
+        String accountNumber = scanner.nextLine();
+
+        // Find the client and check if it exists
+        Client foundClient = (Client) this.getClient(accountNumber);
+        if (foundClient == null){
+            System.out.println("Sorry, it seems like this account does not exist.");
+            this.createAccount();
+        }else{
+            // Create a new account and add it to the client object
+            StandardAccount newAccount = new StandardAccount();
+            foundClient.addNewAccount(newAccount);
+        }
     }
 
-    public void getClient(){
+    public void showClientSummary(){
         System.out.println("Provide client's account number: ");
         String accountNumber = scanner.nextLine();
         // Get client by their account id
         System.out.println(Arrays.toString(this.clientList.toArray()));
-        Client foundClient = this.clientList.stream()
-                .filter(client -> accountNumber.equals(client.getAccountNumber()))
-                .findFirst()
-                .orElse(null);
+        Client foundClient = (Client) this.getClient(accountNumber);
 
         if (foundClient == null){
             System.out.println("Sorry, it seems like this account does not exist.");
         }else{
             System.out.println(foundClient.clientSummary());
         }
+    }
+
+    // Methods for looking up information in the collection
+    public Object getClient(String accountNumber){
+        return this.clientList.stream()
+                .filter(client -> accountNumber.equals(client.getAccountNumber()))
+                .findFirst()
+                .orElse(null);
     }
 }

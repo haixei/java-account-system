@@ -50,7 +50,6 @@ public class Client {
         this.firstName = newName;
     }
 
-    // Allow for adding new accounts
     public void addNewAccount(Object newAccount){
         this.accounts.add(newAccount);
     }
