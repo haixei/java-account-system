@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Client {
     private String firstName;
@@ -34,7 +35,8 @@ public class Client {
             int random = (int)(Math.random() * 50 + 1);
             numbers.add(random);
         }
-        String accountNumber = numbers.toString();
+        String accountNumber = numbers.stream().map(Object::toString)
+                               .collect(Collectors.joining(""));
         accountNumber = accountNumber + firstName.charAt(0) + lastName.charAt(0);
         return accountNumber;
     }
