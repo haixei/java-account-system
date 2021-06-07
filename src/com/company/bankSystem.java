@@ -8,9 +8,11 @@ import java.util.Scanner;
 public class bankSystem {
     // Create a storage place for client data
     private final List<Client> clientList = new ArrayList<>();
+    private final List<StandardAccount> standardAccounts = new ArrayList<>();
+    private final List<SavingsAccount> savingsAccounts = new ArrayList<>();
     Scanner scanner = new Scanner(System.in);
 
-    public void chooseAction(){
+    public void chooseAction() throws Exception {
         System.out.println("Welcome to the bank. Which action you want to perform?\n1. Create client\n2. Create account\n3. Get client info");
         String actionStr = scanner.nextLine();
 
@@ -28,7 +30,7 @@ public class bankSystem {
         }
     }
 
-    public void createClient(){
+    public void createClient() throws Exception {
         System.out.println("Provide client's first name: ");
         String firstName = scanner.nextLine();
         System.out.println("Provide client's last name: ");
@@ -63,23 +65,23 @@ public class bankSystem {
         }
 
         // Pick the client
-        System.out.println("Provide client's account number: ");
-        String accountNumber = scanner.nextLine();
+        System.out.println("Provide client's id: ");
+        String clientId = scanner.nextLine();
 
         // Find the client and check if it exists
-        Client foundClient = (Client) this.getClient(accountNumber);
+        Client foundClient = (Client) this.getClient(clientId);
         if (foundClient == null){
-            System.out.println("Sorry, it seems like this account does not exist.");
+            System.out.println("Sorry, it seems like this client does not exist.");
             this.createAccount();
         }
 
         // Create a new account and add it to the client object
         if(accountOption.equals("1")){
-            StandardAccount newAccount = new StandardAccount();
-            foundClient.addNewAccount(newAccount);
+            StandardAccount newAccount = new StandardAccount(clientId);
+            this.standardAccounts.add(newAccount);
         }else{
-            SavingsAccount newAccount = new SavingsAccount();
-            foundClient.addNewAccount(newAccount);
+            SavingsAccount newAccount = new SavingsAccount(clientId);
+            this.savingsAccounts.add(newAccount);
         }
     }
 
@@ -100,9 +102,9 @@ public class bankSystem {
     // Transaction methods
     public void sendMoney(){
         // Get both account numbers
-        System.out.println("Provide sender's id: ");
+        System.out.println("Provide sender's account number: ");
         String accountNumberSender = scanner.nextLine();
-        System.out.println("Provide receiver's id: ");
+        System.out.println("Provide receiver's account number: ");
         String accountNumberReceiver = scanner.nextLine();
 
         Client foundSender = (Client) this.getClient(accountNumberSender);
@@ -122,7 +124,7 @@ public class bankSystem {
         try{
             int amount = Integer.parseInt(amountStr);
         }catch(NumberFormatException e){
-            System.out.println("Your date contains characters that are not numbers.");
+            System.out.println("The amount you provided consists of characters that are not numbers.");
             this.sendMoney();
         }
     }

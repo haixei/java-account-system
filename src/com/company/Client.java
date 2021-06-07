@@ -10,35 +10,17 @@ public class Client {
     private String firstName;
     private String lastName;
     private long dateCreated;
-    private List<Object> accounts;
     private String dateOfBirth;
     private String Id;
 
-    public Client(String firstName, String lastName, String dateOfBirth){
+    public Client(String firstName, String lastName, String dateOfBirth) throws Exception {
         // Pass the information and create the instance
+        IdGenerator generator = new IdGenerator();
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.dateCreated = System.currentTimeMillis();
-        this.accounts = new ArrayList<>();
-        this.Id = generateId(firstName, lastName);
-    }
-
-    // For now this generates enough of a unique sequence for us but
-    // in case of creating more instances it would be important to store the
-    // numbers and make sure that they are always unique, for example creating
-    // the number based on the last one created like [0, 0, 0, 0] --> [0, 0, 0, 1]
-    private String generateId(String firstName, String lastName){
-        // Generate 10 random two digit numbers
-        List<Integer> numbers = new ArrayList<>();
-        for (int i = 0; i <= 10; i += 1){
-            int random = (int)(Math.random() * 50 + 1);
-            numbers.add(random);
-        }
-        String Id = numbers.stream().map(Object::toString)
-                               .collect(Collectors.joining(""));
-        Id = Id + firstName.charAt(0) + lastName.charAt(0);
-        return Id;
+        this.Id = generator.generateClientId(firstName, lastName);
     }
 
     // Let the client change its name
@@ -48,10 +30,6 @@ public class Client {
 
     public void changeFirstName(String newName){
         this.firstName = newName;
-    }
-
-    public void addNewAccount(Object newAccount){
-        this.accounts.add(newAccount);
     }
 
     // Give client's summary
