@@ -14,9 +14,5 @@ This small project was made to practice OOP and have some fun creating a simple 
 ## How to run?
 Make sure you have Java 8 installed (there is some methods from that version of it) and simply run the main class. An in-console interface should appear with guidelines.
 
-## To-do
-- [ ] Create remove methods for client and accounts
-- [ ] Add all functions to the system's menu
-
-## Issues
+## To consider in the future
 The current implementation of the choice interface is very simple, and frankly it would be good to implement some kind of middleware that would allow the user to go one step back in information input process instead of restarting the whole function. Perhaps a simple method for it would work too. I'm not going to touch it for now but it's an idea to work out after finishing the features.
