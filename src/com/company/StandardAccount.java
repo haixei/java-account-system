@@ -5,8 +5,10 @@ public class StandardAccount implements Account{
     String accountNumber;
     String clientId;
 
-    public StandardAccount(String clientId){
+    public StandardAccount(String clientId) throws Exception {
+        IdGenerator generator = new IdGenerator();
         this.clientId = clientId;
+        this.accountNumber = generator.generateAccountId("ST");
     }
 
     @Override

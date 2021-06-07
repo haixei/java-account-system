@@ -10,9 +10,11 @@ public class SavingsAccount implements Account{
     String accountNumber;
     String clientId;
 
-    public SavingsAccount(String clientId){
+    public SavingsAccount(String clientId) throws Exception {
+        IdGenerator generator = new IdGenerator();
         this.dateCreated = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
         this.clientId = clientId;
+        this.accountNumber = generator.generateAccountId("SA");
     }
 
     @Override

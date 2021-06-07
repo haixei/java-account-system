@@ -55,7 +55,7 @@ public class bankSystem {
 
     }
 
-    public void createAccount(){
+    public void createAccount() throws Exception {
         // Pick new account information
         System.out.println("Select account type:\n1. Standard\n2. Savings");
         String accountOption = scanner.nextLine();
