@@ -11,7 +11,7 @@ public class Client {
     private String lastName;
     private long dateCreated;
     private String dateOfBirth;
-    private String Id;
+    private String ClientId;
 
     public Client(String firstName, String lastName, String dateOfBirth) throws Exception {
         // Pass the information and create the instance
@@ -20,7 +20,7 @@ public class Client {
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.dateCreated = System.currentTimeMillis();
-        this.Id = generator.generateClientId(firstName, lastName);
+        this.ClientId = generator.generateClientId(firstName, lastName);
     }
 
     // Let the client change its name
@@ -39,6 +39,6 @@ public class Client {
     }
 
     public String getClientId(){
-        return this.Id;
+        return this.ClientId;
     }
 }

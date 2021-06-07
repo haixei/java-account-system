@@ -14,7 +14,7 @@ public class bankSystem {
     Scanner scanner = new Scanner(System.in);
 
     public void chooseAction() throws Exception {
-        System.out.println("Welcome to the bank. Which action you want to perform?\n1. Create client\n2. Create account\n3. Get client info");
+        System.out.println("Welcome to the bank. Which action you want to perform?\n1. Create client\n2. Create account\n3. Get client info\n4. Send money\n5. Remove client\n6. Remove account");
         String actionStr = scanner.nextLine();
 
         // Check if the input is a number
@@ -24,6 +24,7 @@ public class bankSystem {
                 case 1 -> this.createClient();
                 case 2 -> this.createAccount();
                 case 3 -> this.showClientSummary();
+                case 4 -> this.sendMoney();
             }
         }catch(NumberFormatException e){
             System.out.println("Please input a number.");
@@ -142,6 +143,59 @@ public class bankSystem {
             System.out.println("The amount you provided consists of characters that are not numbers.");
             this.sendMoney();
         }
+    }
+
+    // Methods for removing objects
+    public void removeClient(){
+        System.out.println("Provide client's Id: ");
+        String clientId = scanner.nextLine();
+
+        // Check if the client exists
+        Client foundClient = (Client) this.getClient(clientId);
+        if(foundClient == null){
+            System.out.println("This client does not exist.");
+            this.removeClient();
+        }
+
+        // Remove all client accounts
+        this.standardAccounts.removeIf(obj -> obj.clientId.equals(clientId));
+        this.savingsAccounts.removeIf(obj -> obj.clientId.equals(clientId));
+
+        // Remove the client object
+        this.clientList.removeIf(obj -> obj.getClientId().equals(clientId));
+    }
+
+    public void removeAccount(){
+        System.out.println("Provide the account number: ");
+        String accountNumber = scanner.nextLine();
+
+        String type = accountNumber.substring(10, 13);
+
+        // Validate the input
+        if(accountNumber.length() != 10){
+            System.out.println("The number you provided is too short, it should be 12 characters long (10 numbers + 2 letters).");
+            this.removeAccount();
+        }else if( !type.equals("ST") && !type.equals("SA")){
+            System.out.println("The last two characters must be either SA or ST.");
+            this.removeAccount();
+        }
+
+        // Check if the number does not contain any other characters than digits
+        try{
+            int numbers = Integer.parseInt(accountNumber.substring(0, 11));
+        }catch(NumberFormatException e){
+            System.out.println("Your account number contains characters that are not digits. The only letters that it can contain are the two last characters.");
+            this.removeAccount();
+        }
+
+        // Check the type and loop trough the right collection
+        if(type == "ST"){
+            this.standardAccounts.removeIf(obj -> obj.getAccountNumber().equals(accountNumber));
+        }else{
+            this.savingsAccounts.removeIf(obj -> obj.getAccountNumber().equals(accountNumber));
+        }
+
+        System.out.println("Account removed successfully.");
     }
 
     // Methods for looking up information in the collection
