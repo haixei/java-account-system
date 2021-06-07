@@ -1,7 +1,9 @@
 package com.company;
 
+import java.math.BigDecimal;
+
 public class StandardAccount implements Account{
-    private float balance = 0;
+    private BigDecimal balance;
     String accountNumber;
     String clientId;
 
@@ -12,13 +14,12 @@ public class StandardAccount implements Account{
     }
 
     @Override
-    public float changeBalance(float newAmount) {
-        this.balance += newAmount;
+    public BigDecimal changeBalance(BigDecimal newAmount) {
         return this.balance;
     }
 
     @Override
-    public float getBalance(){
+    public BigDecimal getBalance(){
         return this.balance;
     }
 }

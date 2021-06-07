@@ -1,6 +1,8 @@
 package com.company;
 
+import java.math.BigDecimal;
+
 public interface Account {
-    float changeBalance(float newAmount);
-    float getBalance();
+    BigDecimal changeBalance(BigDecimal newAmount);
+    BigDecimal getBalance();
 }

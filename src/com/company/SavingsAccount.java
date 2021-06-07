@@ -1,10 +1,11 @@
 package com.company;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class SavingsAccount implements Account{
-    private float balance = 0;
+    private BigDecimal balance;
     private final double percent = 1.5;
     private String dateCreated;
     String accountNumber;
@@ -18,13 +19,12 @@ public class SavingsAccount implements Account{
     }
 
     @Override
-    public float changeBalance(float newAmount) {
-        this.balance += newAmount;
+    public BigDecimal changeBalance(BigDecimal newAmount) {
         return this.balance;
     }
 
     @Override
-    public float getBalance(){
+    public BigDecimal getBalance(){
         return this.balance;
     }
 }
