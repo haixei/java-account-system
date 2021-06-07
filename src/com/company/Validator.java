@@ -4,7 +4,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-public class Validation {
+public class Validator {
     public Boolean validateDateOfBirth(String dateOfBirth){
         // First check the length, this would catch the most errors up front
         // We check if the string is long enough and formatted with three "/" characters

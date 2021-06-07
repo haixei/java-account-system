@@ -40,7 +40,7 @@ public class bankSystem {
         String dateOfBirth = scanner.nextLine();
 
         // Validate the information
-        Validation validator = new Validation();
+        Validator validator = new Validator();
         Boolean validatedName = validator.validateName(firstName, lastName);
         Boolean validatedYear = validator.validateDateOfBirth(dateOfBirth);
 
