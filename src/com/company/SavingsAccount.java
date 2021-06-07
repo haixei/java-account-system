@@ -19,8 +19,13 @@ public class SavingsAccount implements Account{
     }
 
     @Override
+    public String getAccountNumber() {
+        return this.accountNumber;
+    }
+
+    @Override
     public BigDecimal changeBalance(BigDecimal newAmount) {
-        return this.balance;
+        return this.balance.add(newAmount);
     }
 
     @Override

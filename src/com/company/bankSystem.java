@@ -1,5 +1,6 @@
 package com.company;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -107,8 +108,8 @@ public class bankSystem {
         System.out.println("Provide receiver's account number: ");
         String accountNumberReceiver = scanner.nextLine();
 
-        Client foundSender = (Client) this.getClient(accountNumberSender);
-        Client foundReceiver = (Client) this.getClient(accountNumberReceiver);
+        StandardAccount foundSender = (StandardAccount) this.getStandardAccount(accountNumberSender);
+        StandardAccount foundReceiver = (StandardAccount) this.getStandardAccount(accountNumberReceiver);
 
         if(foundSender == null) {
             System.out.println("Sorry, it seems like the sender account does not exist.");
@@ -119,10 +120,24 @@ public class bankSystem {
         }
 
         // Ask for amount of money to transfer
-        System.out.println("How much money do you want to transfer? (ex. -100, 1204)");
+        System.out.println("How much money do you want to transfer?");
         String amountStr = scanner.nextLine();
+        // Check if the input is valid (just numbers)
         try{
-            int amount = Integer.parseInt(amountStr);
+            int amountInt = Integer.parseInt(amountStr);
+            if(amountInt < 0){
+                System.out.println("The amount of money must be positive.");
+                this.sendMoney();
+            }
+
+            // Transform to a big decimal (the appropriate type for handling a currency)
+            BigDecimal amount = new BigDecimal(amountStr);
+
+            // Get the money from the sender
+            foundSender.changeBalance(amount.negate());
+            foundReceiver.changeBalance(amount);
+            System.out.println("The money got successfuly transfered.");
+
         }catch(NumberFormatException e){
             System.out.println("The amount you provided consists of characters that are not numbers.");
             this.sendMoney();
@@ -133,6 +148,13 @@ public class bankSystem {
     public Object getClient(String id){
         return this.clientList.stream()
                 .filter(client -> id.equals(client.getClientId()))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public Object getStandardAccount(String accountNumber){
+        return this.standardAccounts.stream()
+                .filter(account -> accountNumber.equals(account.getAccountNumber()))
                 .findFirst()
                 .orElse(null);
     }
