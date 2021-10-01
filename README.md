@@ -1,4 +1,4 @@
-![Finished](https://i.imgur.com/hzCFhps.png)
+![Finished](https://i.imgur.com/CSXnOqV.png)
 # Simple Bank System
 This small project was made to practice OOP and have some fun creating a simple system for account & client management. If you're interested to learn more about Java, this project includes type casting, working with collections, interfaces and more. For the simplicity of the concept, I'm not going to make it secure or production-ready, the program does not require passwords or permissions. Everything is done with pure Java.
 
