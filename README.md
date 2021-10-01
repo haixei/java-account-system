@@ -3,7 +3,7 @@
 This small project was made to practice OOP and have some fun creating a simple system for account & client management. If you're interested to learn more about Java, this project includes type casting, working with collections, interfaces and more. For the simplicity of the concept, I'm not going to make it secure or production-ready, the program does not require passwords or permissions. Everything is done with pure Java.
 
 ## Project functionality map
-<img src="https://i.imgur.com/jBlGOhY.png" height="700">
+<img src="https://i.imgur.com/jBlGOhY.png" height="874">
 
 ## Features
 - Creating/removing a client or account
